@@ -7,7 +7,7 @@ import spacy
 nlp = spacy.load("en_core_web_sm")
 
 app = FastAPI(
-    title="Tokenization and Lemmatization API",
+    title="Text Processing API",
     description="API for text tokenization and lemmatization",
     version="1.0.0"
 )
@@ -21,22 +21,22 @@ class TokenizeResponse(BaseModel):
 @app.post("/tokenize", response_model=TokenizeResponse)
 async def tokenize_text(request: TokenizeRequest):
     """
-    Process text to return lemmatized tokens.
+    Process text to return lemmatized tokens in original order, including duplicates.
     """
     try:
         # Process with spaCy
         doc = nlp(request.text.lower())
         
-        # Only get actual word tokens
-        tokens = {
+        # Keep all tokens in original order, including duplicates
+        tokens = [
             token.lemma_
             for token in doc
             if (not token.is_stop and                  # Remove stop words
                 token.pos_ in ['NOUN', 'VERB', 'ADJ', 'ADV', 'PROPN'] and  # Only actual words
                 len(token.lemma_) >= 2)                # Must be at least 2 chars
-        }
+        ]
         
-        return TokenizeResponse(tokens=sorted(list(tokens)))
+        return TokenizeResponse(tokens=tokens)
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
