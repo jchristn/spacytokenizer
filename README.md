@@ -14,10 +14,10 @@ Response: 200/OK
 {
     "tokens": [
         "attach",
-        "lemmatize",
-        "need",
         "text",
-        "tokenize"
+        "need",
+        "tokenize",
+        "lemmatize"
     ]
 }
 ```
