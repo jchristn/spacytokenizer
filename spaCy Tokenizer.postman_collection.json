@@ -37,7 +37,40 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"text\": \"Attached is some text that needs to be tokenized and lemmatized.\"\r\n}",
+					"raw": "{\r\n  \"text\": \"The quick brown fox jumps over the lazy dog\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}{{hostname}}:{{port}}/tokenize",
+					"host": [
+						"{{protocol}}{{hostname}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tokenize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tokenize Batch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"texts\": [\r\n    \"The quick brown fox jumps over the lazy dog\",\r\n    \"Machine learning models are powerful tools\"\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
